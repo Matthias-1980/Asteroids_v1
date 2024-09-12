@@ -1,4 +1,6 @@
 import pygame
+import sys
+import time
 from constants import *
 from player import *
 from asteroid import *
@@ -25,7 +27,8 @@ def main():
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)    
     asteroidField = AsteroidField()
 
-    while(True):
+    go = True
+    while(go):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
@@ -39,6 +42,16 @@ def main():
         
         for thing in group_updateable:
             thing.update(dt)
+
+        for thing in group_asteroids:
+            if player.collisions(thing):
+                font = pygame.font.Font(pygame.font.get_default_font(), 36)
+                text_surface = font.render('Game over!', True, (50, 150, 50))
+                go = False
+                screen.blit(text_surface, dest=(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
+                pygame.display.flip() #refreshes the screen
+                time.sleep(5)
+                #sys.exit()
 
 if __name__ == "__main__":
     main()
