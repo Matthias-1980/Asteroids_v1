@@ -5,6 +5,7 @@ from constants import *
 from player import *
 from asteroid import *
 from asteroidField import AsteroidField
+from shot import Shot
 
 def main():
     print("Starting asteroids!")
@@ -24,6 +25,7 @@ def main():
     Player.containers = (group_updateable, group_drawable)
     Asteroid.containers = (group_asteroids, group_updateable, group_drawable)
     AsteroidField.containers = (group_updateable)
+    Shot.containers = (group_updateable, group_drawable)
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)    
     asteroidField = AsteroidField()
 
