@@ -19,13 +19,14 @@ def main():
     group_updateable = pygame.sprite.Group()
     group_drawable = pygame.sprite.Group()
     group_asteroids = pygame.sprite.Group()
+    group_shots = pygame.sprite.Group()
 
     # look at parent of parent of Player, Asteroid, or 
     # AsteroidField to see how container works.
     Player.containers = (group_updateable, group_drawable)
     Asteroid.containers = (group_asteroids, group_updateable, group_drawable)
     AsteroidField.containers = (group_updateable)
-    Shot.containers = (group_updateable, group_drawable)
+    Shot.containers = (group_updateable, group_drawable, group_shots)
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)    
     asteroidField = AsteroidField()
 
@@ -46,6 +47,10 @@ def main():
             thing.update(dt)
 
         for thing in group_asteroids:
+            for shot in group_shots:
+                if shot.collisions(thing):
+                    shot.kill()
+                    thing.split()
             if player.collisions(thing):
                 font = pygame.font.Font(pygame.font.get_default_font(), 36)
                 text_surface = font.render('Game over!', True, (50, 150, 50))
