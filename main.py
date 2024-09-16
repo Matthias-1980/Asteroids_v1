@@ -1,5 +1,4 @@
 import pygame
-import sys
 import time
 from constants import *
 from player import *
@@ -58,7 +57,18 @@ def main():
                 screen.blit(text_surface, dest=(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
                 pygame.display.flip() #refreshes the screen
                 time.sleep(5)
-                #sys.exit()
+                
 
 if __name__ == "__main__":
     main()
+
+'''
+Documentation for game loop.
+
+dt is used to lock the game spped down to 60 fps.
+without it the game would just run at maximum speeds
+relataive to the computer processing power.
+
+The real art here is understanding how each object in game (astroid, player, shot) inherits a container from its parent (circleshape).
+Each object in game is simply monitored by pygame, since it is in a container, 
+'''
